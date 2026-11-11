@@ -6,7 +6,7 @@
     "vervoer": "auto"
   },
   "filters": {
-    "alleen_duidelijk_gratis_ophalen": true,
+    "alleen_duidelijk_gratis_ophalen": false,
     "min_doorverkoopwaarde": 75,
     "kapot_of_onderdelen_ok": true,
     "alleen_particulieren": true,
