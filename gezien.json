@@ -1,6 +1,6 @@
 {
  "_dag": {
-  "bekeken": 946,
+  "bekeken": 947,
   "bijna": [
    {
     "r": "bus/aanhanger nodig",
@@ -11,14 +11,14 @@
   "datum": "2026-11-11",
   "fouten": 0,
   "gemeld": 45,
-  "gratis": 223,
+  "gratis": 224,
   "redenen": {
    "bus/aanhanger nodig": 1,
-   "geen van je categorieën": 149,
+   "geen van je categorieën": 150,
    "niet duidelijk 'gratis ophalen'": 20,
    "woord uit 'nooit tonen'": 8
   },
-  "rondes": 85,
+  "rondes": 86,
   "verstuurd": true
  },
  "m1442041390": 1794366544,
@@ -2168,5 +2168,6 @@
  "m2464751814": 1794426019,
  "m2464752180": 1794426019,
  "m2464752768": 1794426019,
- "m2464753965": 1794426338
+ "m2464753965": 1794426338,
+ "m2464758177": 1794427249
 }
