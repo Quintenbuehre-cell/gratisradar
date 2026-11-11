@@ -1,25 +1,14 @@
 {
  "_dag": {
-  "bekeken": 1004,
-  "bijna": [
-   {
-    "r": "bus/aanhanger nodig",
-    "t": "Kymco Agility scooter - opknapper",
-    "u": "https://www.marktplaats.nl/v/fietsen-en-brommers/scooters-kymco/m2448079638-kymco-agility-scooter-opknapper"
-   }
-  ],
-  "datum": "2026-11-11",
+  "bekeken": 1,
+  "bijna": [],
+  "datum": "2026-11-12",
   "fouten": 0,
-  "gemeld": 45,
-  "gratis": 244,
-  "redenen": {
-   "bus/aanhanger nodig": 1,
-   "geen van je categorieën": 170,
-   "niet duidelijk 'gratis ophalen'": 20,
-   "woord uit 'nooit tonen'": 8
-  },
-  "rondes": 114,
-  "verstuurd": true
+  "gemeld": 0,
+  "gratis": 0,
+  "redenen": {},
+  "rondes": 1,
+  "verstuurd": false
  },
  "m1442041390": 1794366544,
  "m1795296378": 1794402940,
@@ -2226,5 +2215,6 @@
  "m2464793142": 1794437429,
  "m2464793654": 1794437433,
  "m2464793784": 1794437726,
- "m2464794168": 1794437726
+ "m2464794168": 1794437726,
+ "m2464794572": 1794438052
 }
