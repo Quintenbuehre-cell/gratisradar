@@ -1,0 +1,374 @@
+{
+  "ik": {
+    "naam": "Q",
+    "postcode": "",
+    "max_km": 25,
+    "vervoer": "auto"
+  },
+  "filters": {
+    "alleen_duidelijk_gratis_ophalen": true,
+    "min_doorverkoopwaarde": 40,
+    "kapot_of_onderdelen_ok": true,
+    "alleen_particulieren": true,
+    "ook_overige_spullen": false,
+    "nooit_tonen": [
+      "gezocht",
+      "gevraagd",
+      "ruilen",
+      "2e gratis",
+      "tweede gratis",
+      "hoesje",
+      "oplader",
+      "kabel",
+      "verhuisdozen",
+      "asbest"
+    ]
+  },
+  "meldingen": {
+    "telegram_bot_token": "",
+    "telegram_chat_id": "",
+    "met_foto": true,
+    "stille_uren": [
+      23,
+      7
+    ],
+    "reactie_sjabloon": "Hoi! Is {wat} nog beschikbaar? Ik kan vandaag nog ophalen. Groetjes, {naam}"
+  },
+  "categorieen": [
+    {
+      "naam": "Scooters & brommers",
+      "aan": true,
+      "waarde": [
+        150,
+        600
+      ],
+      "formaat": "groot",
+      "zoek": [
+        "gratis scooter",
+        "gratis brommer",
+        "gratis snorscooter"
+      ],
+      "woorden": [
+        "scooter",
+        "snorscooter",
+        "brommer",
+        "piaggio",
+        "vespa",
+        "kymco",
+        "kisbee",
+        "zip",
+        "agm"
+      ]
+    },
+    {
+      "naam": "Telefoons & tablets",
+      "aan": true,
+      "waarde": [
+        40,
+        250
+      ],
+      "formaat": "klein",
+      "zoek": [
+        "gratis iphone",
+        "gratis telefoon",
+        "gratis ipad"
+      ],
+      "woorden": [
+        "iphone",
+        "ipad",
+        "galaxy",
+        "pixel",
+        "smartphone",
+        "telefoon",
+        "tablet",
+        "apple watch",
+        "airpods"
+      ]
+    },
+    {
+      "naam": "Laptops & computers",
+      "aan": true,
+      "waarde": [
+        50,
+        350
+      ],
+      "formaat": "klein",
+      "zoek": [
+        "gratis laptop",
+        "gratis computer",
+        "gratis macbook"
+      ],
+      "woorden": [
+        "laptop",
+        "macbook",
+        "imac",
+        "mac mini",
+        "thinkpad",
+        "computer",
+        "pc",
+        "monitor",
+        "beeldscherm"
+      ]
+    },
+    {
+      "naam": "Gaming",
+      "aan": true,
+      "waarde": [
+        40,
+        250
+      ],
+      "formaat": "klein",
+      "zoek": [
+        "gratis playstation",
+        "gratis xbox",
+        "gratis nintendo"
+      ],
+      "woorden": [
+        "playstation",
+        "ps3",
+        "ps4",
+        "ps5",
+        "xbox",
+        "nintendo",
+        "switch",
+        "wii",
+        "gameboy",
+        "games"
+      ]
+    },
+    {
+      "naam": "E-bikes & fietsen",
+      "aan": true,
+      "waarde": [
+        30,
+        500
+      ],
+      "formaat": "klein",
+      "zoek": [
+        "gratis fiets",
+        "gratis e-bike"
+      ],
+      "woorden": [
+        "e-bike",
+        "elektrische fiets",
+        "fiets",
+        "gazelle",
+        "batavus",
+        "cortina",
+        "vanmoof",
+        "racefiets",
+        "bakfiets"
+      ]
+    },
+    {
+      "naam": "Gereedschap",
+      "aan": true,
+      "waarde": [
+        20,
+        150
+      ],
+      "formaat": "middel",
+      "zoek": [
+        "gratis gereedschap",
+        "gratis boormachine"
+      ],
+      "woorden": [
+        "gereedschap",
+        "makita",
+        "bosch",
+        "dewalt",
+        "metabo",
+        "ryobi",
+        "festool",
+        "hilti",
+        "boormachine",
+        "accuboor",
+        "cirkelzaag",
+        "decoupeerzaag",
+        "compressor",
+        "hogedrukreiniger",
+        "grasmaaier"
+      ]
+    },
+    {
+      "naam": "Audio & hifi",
+      "aan": true,
+      "waarde": [
+        20,
+        200
+      ],
+      "formaat": "middel",
+      "zoek": [
+        "gratis speakers",
+        "gratis versterker",
+        "gratis platenspeler"
+      ],
+      "woorden": [
+        "sonos",
+        "bose",
+        "jbl",
+        "marantz",
+        "technics",
+        "denon",
+        "versterker",
+        "speaker",
+        "speakers",
+        "platenspeler",
+        "receiver",
+        "vinyl"
+      ]
+    },
+    {
+      "naam": "Keukenapparaten & Dyson",
+      "aan": true,
+      "waarde": [
+        20,
+        200
+      ],
+      "formaat": "klein",
+      "zoek": [
+        "gratis dyson",
+        "gratis koffiemachine"
+      ],
+      "woorden": [
+        "dyson",
+        "nespresso",
+        "koffiemachine",
+        "kitchenaid",
+        "thermomix",
+        "airfryer",
+        "smeg",
+        "le creuset",
+        "philips hue",
+        "stofzuiger"
+      ]
+    },
+    {
+      "naam": "Design & vintage",
+      "aan": true,
+      "waarde": [
+        40,
+        400
+      ],
+      "formaat": "middel",
+      "zoek": [
+        "gratis vintage",
+        "gratis design"
+      ],
+      "woorden": [
+        "vintage",
+        "retro",
+        "design",
+        "eames",
+        "pastoe",
+        "vitra",
+        "gispen",
+        "artifort",
+        "string",
+        "teak",
+        "deens"
+      ]
+    },
+    {
+      "naam": "Lego & speelgoed",
+      "aan": true,
+      "waarde": [
+        15,
+        120
+      ],
+      "formaat": "klein",
+      "zoek": [
+        "gratis lego",
+        "gratis speelgoed"
+      ],
+      "woorden": [
+        "lego",
+        "duplo",
+        "playmobil",
+        "nerf",
+        "barbie"
+      ]
+    },
+    {
+      "naam": "Baby & kind",
+      "aan": true,
+      "waarde": [
+        20,
+        250
+      ],
+      "formaat": "middel",
+      "zoek": [
+        "gratis kinderwagen"
+      ],
+      "woorden": [
+        "kinderwagen",
+        "bugaboo",
+        "joolz",
+        "stokke",
+        "maxi-cosi",
+        "box",
+        "kinderstoel",
+        "buggy"
+      ]
+    },
+    {
+      "naam": "Witgoed",
+      "aan": true,
+      "waarde": [
+        40,
+        200
+      ],
+      "formaat": "groot",
+      "zoek": [
+        "gratis wasmachine",
+        "gratis koelkast"
+      ],
+      "woorden": [
+        "wasmachine",
+        "droger",
+        "vaatwasser",
+        "koelkast",
+        "vriezer"
+      ]
+    },
+    {
+      "naam": "Gewone meubels",
+      "aan": false,
+      "waarde": [
+        10,
+        80
+      ],
+      "formaat": "groot",
+      "zoek": [
+        "gratis bank",
+        "gratis kast"
+      ],
+      "woorden": [
+        "bank",
+        "bankstel",
+        "kast",
+        "tafel",
+        "bureau",
+        "stoel",
+        "ladekast",
+        "boekenkast",
+        "bed"
+      ]
+    }
+  ],
+  "extra_zoekwoorden": [
+    "gratis ophalen",
+    "gratis af te halen",
+    "weg te geven"
+  ],
+  "altijd_groot": [
+    "bankstel",
+    "hoekbank",
+    "piano",
+    "kledingkast",
+    "koelkast",
+    "wasmachine"
+  ],
+  "resultaten_per_zoekwoord": 40,
+  "interval_seconden": 120
+}
