@@ -313,33 +313,103 @@ def zoekwoorden(cfg):
     return uniek
 
 
+def dag_stats(gezien):
+    vandaag = nu().strftime("%Y-%m-%d")
+    d = gezien.get("_dag")
+    if not isinstance(d, dict) or d.get("datum") != vandaag:
+        d = {"datum": vandaag, "rondes": 0, "bekeken": 0, "gratis": 0, "gemeld": 0,
+             "redenen": {}, "bijna": [], "fouten": 0, "verstuurd": False}
+        gezien["_dag"] = d
+    return d
+
+
 def ronde(cfg, gezien, eerste_keer):
-    nieuw = 0
+    treffers = []
     ik = cfg.get("ik", {})
+    d = dag_stats(gezien)
+    d["rondes"] += 1
+    r_bekeken = r_gratis = 0
+    r_redenen = {}
     for woord in zoekwoorden(cfg):
         try:
             ruwe = zoek(woord, ik, cfg.get("resultaten_per_zoekwoord", 40))
         except Exception as e:
             log(f"⚠️  zoeken mislukt voor '{woord}':", e)
+            d["fouten"] += 1
             continue
         for l in ruwe:
             a = normaliseer(l)
             if a["id"] in gezien:
                 continue
             gezien[a["id"]] = int(time.time())
+            r_bekeken += 1
+            if gratis_score(a) >= 1:
+                r_gratis += 1
             ok, reden, info = beoordeel(a, cfg)
             if not ok:
+                if gratis_score(a) >= 1:          # alleen redenen van gratis spullen zijn interessant
+                    kort = re.sub(r"[\d.,]+ km te ver", "te ver weg", reden)
+                    kort = re.sub(r"te weinig waard.*", "te weinig waard", kort)
+                    kort = re.sub(r"bevat '.*'", "woord uit 'nooit tonen'", kort)
+                    r_redenen[kort] = r_redenen.get(kort, 0) + 1
+                    if not eerste_keer and kort in ("te ver weg", "te weinig waard", "bus/aanhanger nodig",
+                                                     "past in de auto") and len(d["bijna"]) < 5:
+                        d["bijna"].append({"t": a["titel"][:60], "r": reden, "u": a["url"]})
                 continue
             if eerste_keer:
                 continue            # startronde: alleen onthouden, geen spam met oude advertenties
-            meld(a, info, cfg)
-            nieuw += 1
+            treffers.append((a, info))
         time.sleep(random.uniform(1.0, 2.5))
+    # Veel tegelijk (bv. na een pauze van GitHub)? Dan de beste los, de rest in één bundel.
+    max_los = cfg.get("meldingen", {}).get("max_losse_meldingen_per_ronde", 4)
+    treffers.sort(key=lambda x: -x[1]["hi"])
+    for a, info in treffers[:max_los]:
+        meld(a, info, cfg)
+    rest = treffers[max_los:]
+    if rest:
+        regels = [f"📦 <b>Nog {len(rest)} gratis spullen deze ronde</b>",
+                  "Kwamen tegelijk binnen, dus misschien al wat ouder:", ""]
+        for a, info in rest[:25]:
+            km = f" · {a['km']} km" if a["km"] is not None else ""
+            regels.append(f'• <a href="{a["url"]}">{esc(a["titel"][:55])}</a> · ≈ €{info["lo"]}–{info["hi"]}{km}')
+        stuur_telegram(cfg, "\n".join(regels))
+    nieuw = len(treffers)
+    if not eerste_keer:
+        d["bekeken"] += r_bekeken
+        d["gratis"] += r_gratis
+        d["gemeld"] += nieuw
+        for k, v in r_redenen.items():
+            d["redenen"][k] = d["redenen"].get(k, 0) + v
+    log(f"nieuw bekeken: {r_bekeken} · waarvan gratis: {r_gratis} · gemeld: {nieuw}")
+    if r_redenen:
+        log("afgevallen gratis spullen: " + ", ".join(f"{k} {v}x" for k, v in
+                                                       sorted(r_redenen.items(), key=lambda x: -x[1])))
+    uur = cfg.get("meldingen", {}).get("dagoverzicht_uur", 20)
+    if uur is not None and nu().hour >= uur and not d["verstuurd"] and not eerste_keer:
+        stuur_overzicht(cfg, d)
+        d["verstuurd"] = True
     grens = time.time() - 10 * 86400
-    for k in [k for k, t in gezien.items() if t < grens]:
+    for k in [k for k, t in gezien.items() if not k.startswith("_") and t < grens]:
         del gezien[k]
     bewaar_json(GEZIEN_PAD, gezien)
     return nieuw
+
+
+def stuur_overzicht(cfg, d, titel="📊 <b>GratisRadar dagoverzicht</b>"):
+    regels = [titel,
+              f"Rondes: {d['rondes']} · nieuwe advertenties bekeken: {d['bekeken']}",
+              f"Waarvan gratis: {d['gratis']} · naar jou gestuurd: {d['gemeld']}"]
+    if d.get("fouten"):
+        regels.append(f"⚠️ {d['fouten']}x zoeken mislukt")
+    if d["redenen"]:
+        regels += ["", "<b>Afgevallen gratis spullen:</b>"]
+        regels += [f"• {esc(k)}: {v}x" for k, v in sorted(d["redenen"].items(), key=lambda x: -x[1])[:6]]
+    if d.get("bijna"):
+        regels += ["", "<b>Net niet door je filters:</b>"]
+        regels += [f'• <a href="{b["u"]}">{esc(b["t"])}</a> ({esc(b["r"])})' for b in d["bijna"]]
+    if d["rondes"] and not d["gemeld"]:
+        regels += ["", "Tip: geen meldingen? Zet max_km hoger, min_doorverkoopwaarde lager of vervoer op bus."]
+    stuur_telegram(cfg, "\n".join(regels))
 
 
 def main():
@@ -353,11 +423,12 @@ def main():
         a = {"titel": "iPhone 11 met gebarsten scherm (TEST)", "plaats": "Haarlem", "km": 12.4,
              "url": BASIS, "foto": ""}
         meld(a, {"cat": "Telefoons & tablets", "lo": 40, "hi": 125, "kapot": True, "formaat": "klein"}, cfg)
+        stuur_overzicht(cfg, dag_stats(laad_json(GEZIEN_PAD, {})), "📊 <b>Status tot nu toe vandaag</b>")
         print("Testmelding verstuurd. Zie je hem niet in Telegram? Check token, chat-ID en of je de bot /start hebt gestuurd.")
         return
 
     gezien = laad_json(GEZIEN_PAD, {})
-    eerste = len(gezien) == 0
+    eerste = not any(not k.startswith("_") for k in gezien)
     interval = max(60, int(cfg.get("interval_seconden", 120)))
     log(f"GratisRadar gestart · {len(zoekwoorden(cfg))} zoekwoorden")
     while True:
