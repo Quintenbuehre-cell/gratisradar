@@ -1,16 +1,16 @@
 {
  "_dag": {
-  "bekeken": 232,
+  "bekeken": 233,
   "bijna": [],
   "datum": "2026-11-14",
   "fouten": 3,
   "gemeld": 10,
-  "gratis": 135,
+  "gratis": 136,
   "redenen": {
-   "geen van je categorieën": 122,
+   "geen van je categorieën": 123,
    "woord uit 'nooit tonen'": 3
   },
-  "rondes": 184,
+  "rondes": 185,
   "verstuurd": false
  },
  "m1442041390": 1794366544,
@@ -3142,5 +3142,6 @@
  "m2465743867": 1794665115,
  "m2465744699": 1794665198,
  "m2465747536": 1794665721,
- "m2465749623": 1794665746
+ "m2465749623": 1794665746,
+ "m2465749982": 1794666019
 }
